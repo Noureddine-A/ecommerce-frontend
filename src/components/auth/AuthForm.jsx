@@ -11,7 +11,7 @@ import { AuthContext } from "../store/AuthContext";
 import { TailSpin } from "react-loader-spinner";
 
 import AuthInput from "./AuthInput";
-import { authenticate } from "../util/http";
+import { authenticate } from "./util/http";
 
 const AuthForm = () => {
   const [error, setError] = useState();
@@ -42,10 +42,12 @@ const AuthForm = () => {
       setLoading(false);
       setError(errorList);
     } else if (actionData?.status === 200) {
-      if(actionData.isAdmin === true) {
-        authContext.changeAdmin(true);
+      if (actionData.isAdmin === true) {
+        authContext.loginUser(true);
+      } else {
+        authContext.loginUser(false);
       }
-      authContext.changeAuth(true);
+
       navigate("/");
     }
   }, [actionData]);
@@ -163,7 +165,7 @@ export async function action({ request }) {
   const response = await authenticate(user, route);
 
   if (response.status === 200) {
-    return {status: response.status, isAdmin: response.data.admin}
+    return { status: response.status, isAdmin: response.data.admin };
   }
 
   return response;

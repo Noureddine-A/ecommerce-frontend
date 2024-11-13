@@ -82,24 +82,3 @@ export async function logout() {
     return false;
   }
 }
-
-export async function addCategory(category) {
-  console.log(category);
-  try {
-    const response = apiClient.post(
-      "/api/admin/add-category",
-      JSON.stringify({categoryName: category}),
-      {
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    return response;
-  } catch (error) {
-    return error;
-  }
-}

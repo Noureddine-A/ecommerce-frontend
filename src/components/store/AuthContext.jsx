@@ -1,36 +1,40 @@
 import { createContext, useState } from "react";
 
 export const AuthContext = createContext({
-  isAuth: false,
-  isAdmin: false,
-  changeAuth: () => {},
-  changeAdmin: () => {},
+  login: null,
+  loginUser: () => {},
+  logoutUser: () => {},
 });
 
 const AuthContextProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [login, setLogin] = useState(false);
 
-  function changeAuth(auth) {
-    setIsAuth(auth);
+  function loginUser(isAdmin) {
+    if (isAdmin) {
+      localStorage.setItem("admin", true);
+    } else {
+      localStorage.setItem("admin", false);
+    }
+
+    localStorage.setItem("auth", true);
+
+    setLogin(true);
   }
 
-  function changeAdmin(value) {
-    // Fix that the user state persists after page reload by sending a request to the backend requesting whether the user is authenticated and then use that info
-    // to reload the isAdmin state to true 
-    if (!localStorage.getItem("admin")) {
-      localStorage.setItem("admin", true);
-      setIsAdmin(value);
-    } else {
-      setIsAdmin(localStorage.getItem("admin"));
+  function logoutUser() {
+    if (localStorage.getItem("admin") === "true") {
+      localStorage.removeItem("admin");
     }
+
+    localStorage.removeItem("auth");
+
+    setLogin(false);
   }
 
   let ctxValue = {
-    changeAuth,
-    isAuth,
-    isAdmin,
-    changeAdmin,
+    login,
+    loginUser,
+    logoutUser,
   };
 
   return (

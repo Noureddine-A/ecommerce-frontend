@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { addCategory } from "../util/http";
+import React, { useEffect, useState } from "react";
+import { addCategory } from "./util/adminHttp";
 import { Form, useActionData } from "react-router-dom";
 
 import { TailSpin } from "react-loader-spinner";
 
 const AddCategory = () => {
-  const [loading, setLoading] = useState({ loading: false, success: false });
+  const [loading, setLoading] = useState({ loading: false, message: undefined });
   const actionData = useActionData();
 
   useEffect(() => {
-    if (loading && actionData?.success === true) {
-      setLoading({ loading: false, success: true });
+    if (loading && actionData?.message !== undefined) {
+      setLoading({ loading: false, message: actionData.message });
     }
   }, [actionData]);
 
@@ -47,7 +47,7 @@ const AddCategory = () => {
             <TailSpin height="60" width="60" radius="4" color="orange" />
           )}
 
-          {loading.success && <p className="ml-[1rem]">Added the category</p>}
+          {loading.message && <p className="ml-[1rem]">{loading.message}</p>}
         </div>
       </div>
     </Form>
@@ -64,8 +64,8 @@ export async function action({ request }) {
   const response = await addCategory(categoryName);
 
   if (response.status === 200) {
-    return { success: true };
+    return { success: true, message: response.data.message };
   }
 
-  return { success: false };
+  return { success: false, message: response.response.data.message };
 }

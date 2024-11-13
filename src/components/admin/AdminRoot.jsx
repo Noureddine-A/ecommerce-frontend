@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer } from "react";
-import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import { Outlet, NavLink, useNavigate, redirect } from "react-router-dom";
+import { isAdmin } from "../auth/util/is-auth";
 
 function reducer(state, action) {
   state = action.payload;
@@ -50,3 +51,11 @@ const AdminRoot = () => {
 };
 
 export default AdminRoot;
+
+export function loader() {
+  if (isAdmin() === false) {
+    return redirect("/");
+  }
+
+  return null;
+}

@@ -1,6 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import { action as authAction } from "./components/auth/AuthForm";
 import { action as addCategoryAction } from "./components/admin/AddCategory";
+import { action as addProductAction} from "./components/admin/AddProduct";
+
+import { loader as adminLoader } from "./components/admin/AdminRoot";
+import { loader as productLoader } from "./components/admin/AddProduct";
 
 import Root from "./components/Root";
 import AuthForm from "./components/auth/AuthForm";
@@ -31,10 +36,13 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminRoot />,
+        loader: adminLoader,
         children: [
           {
             path: "add-product",
             element: <AddProduct />,
+            loader: productLoader,
+            action: addProductAction,
           },
           {
             path: "add-category",

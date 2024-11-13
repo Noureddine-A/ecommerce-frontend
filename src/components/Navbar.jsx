@@ -1,16 +1,20 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, redirect, useNavigate } from "react-router-dom";
 import { AuthContext } from "./store/AuthContext";
-import { logout, test } from "./util/http";
+import { logout } from "./auth/util/http";
+import { isAdmin, isAuth } from "./auth/util/is-auth";
+
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
 
   async function onLogoutHandler() {
     const loggedOut = await logout();
 
     if (loggedOut) {
-      authContext.changeAuth(false);
+      authContext.logoutUser();
+      navigate("/");
     }
   }
 
@@ -34,12 +38,15 @@ const Navbar = () => {
           >
             Home
           </NavLink>
-          {authContext.isAdmin && (
-            <NavLink to ="/admin/add-product" className="hover:cursor-pointer hover:text-orange-500">
+          {isAdmin() && (
+            <NavLink
+              to="/admin/add-product"
+              className="hover:cursor-pointer hover:text-orange-500"
+            >
               About
             </NavLink>
           )}
-          {!authContext.isAuth ? (
+          {!isAuth() ? (
             <NavLink
               to="/signup"
               className={({ isActive }) =>
