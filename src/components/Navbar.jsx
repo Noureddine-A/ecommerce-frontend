@@ -1,7 +1,13 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+
 import { AuthContext } from "./store/AuthContext";
-import { logout, test } from "./util/http";
+import { logout } from "./util/http";
+
+import Logo from "../assets/images/logo.png";
+import Cart from "../assets/images/cart_icon.png";
+import Profile from "../assets/images/profile_icon.png";
+import Search from "../assets/images/search_icon.png";
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
@@ -16,43 +22,74 @@ const Navbar = () => {
 
   return (
     <section id="navbar">
-      <div className="flex w-full h-[15vh] bg-neutral-950">
-        <div className="flex justify-center items-center w-[25%] h-full">
-          <h1 className="text-white text-3xl">Webshop</h1>
+      <div className="flex w-full h-[15vh]">
+        <div className="flex items-center w-[20%] h-full">
+          <img className="h-[50%]" src={Logo} alt={Logo} />
         </div>
         <nav
-          className="flex w-[75%] h-full text-white justify-center
-        items-center list-none gap-[2rem]"
+          className="flex w-[80%] h-full text-white 
+         list-none gap-[2rem]"
         >
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive
-                ? "text-orange-500"
-                : "hover:cursor-pointer hover:text-orange-500"
-            }
-          >
-            Home
-          </NavLink>
-          {authContext.isAdmin && (
-            <NavLink to ="/admin/add-product" className="hover:cursor-pointer hover:text-orange-500">
-              About
-            </NavLink>
-          )}
-          {!authContext.isAuth ? (
+          <div className="flex text-black font-medium justify-center items-center gap-[1rem] w-[75%] h-full">
             <NavLink
-              to="/signup"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-orange-500"
-                  : "hover:cursor-pointer hover:text-orange-500"
-              }
+              to="/"
+              className={({ isActive }) => {
+                return isActive
+                  ? "border-b-2 border-orange-600"
+                  : "hover:border-b-2 border-orange-600";
+              }}
             >
-              Sign Up
+              HOME
             </NavLink>
-          ) : (
-            <button onClick={onLogoutHandler}>Log Out</button>
-          )}
+            <NavLink
+              to="/collection"
+              className={({ isActive }) => {
+                return isActive
+                  ? "border-b-2 border-orange-600"
+                  : "hover:border-b-2 border-orange-600";
+              }}
+            >
+              COLLECTION
+            </NavLink>
+            <NavLink
+              to="/about"
+              className={({ isActive }) => {
+                return isActive
+                  ? "border-b-2 border-orange-600"
+                  : "hover:border-b-2 border-orange-600";
+              }}
+            >
+              ABOUT
+            </NavLink>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) => {
+                return isActive
+                  ? "border-b-2 border-orange-600"
+                  : "hover:border-b-2 border-orange-600";
+              }}
+            >
+              CONTACT
+            </NavLink>
+          </div>
+          <div className="flex gap-[1.5rem] justify-center items-center w-[25%] h-full">
+            <img
+              className="h-6 hover:cursor-pointer"
+              src={Search}
+              alt={Search}
+            />
+            <img
+              className="h-6 hover:cursor-pointer"
+              src={Profile}
+              alt={Profile}
+            />
+            <div className="relative hover:cursor-pointer">
+              <img className="h-6" src={Cart} alt={Cart} />
+              <div className="absolute top-3 rounded-full right-[-4px] w-[18px] h-[18px] text-center bg-slate-950 text-[10px]">
+                10
+              </div>
+            </div>
+          </div>
         </nav>
       </div>
     </section>
