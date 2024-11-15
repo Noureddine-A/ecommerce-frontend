@@ -5,6 +5,7 @@ import {
   useActionData,
   useLocation,
   useNavigate,
+  NavLink,
 } from "react-router-dom";
 import { AuthContext } from "../store/AuthContext";
 
@@ -42,7 +43,7 @@ const AuthForm = () => {
       setLoading(false);
       setError(errorList);
     } else if (actionData?.status === 200) {
-      if(actionData.isAdmin === true) {
+      if (actionData.isAdmin === true) {
         authContext.changeAdmin(true);
       }
       authContext.changeAuth(true);
@@ -61,77 +62,70 @@ const AuthForm = () => {
   }
 
   return (
-    <Form
-      onSubmit={onCreateHandler}
-      method="post"
-      action={pathname}
-      className="flex justify-center items-center h-full w-full"
-    >
-      <div className="w-3/5 h-fit py-[1rem] px-[2rem] rounded-md border-x-2 border-gray-200 border-y-2">
-        <input type="hidden" name={pathname} id={pathname} value={pathname} />
-        <div className="w-full h-fit">
-          {pathname === "/signup" ? (
-            <h1 className="text-3xl pb-[1rem] font-semibold">
-              Create your account
-            </h1>
-          ) : (
-            <h1 className="text-3xl pb-[1rem] font-semibold">Login</h1>
-          )}
-
-          <p className="text-sm pb-[1rem]">Enter your details below</p>
-          <div className="grid">
-            {placeholders.map((placeholder, index) => {
-              return (
-                <AuthInput
-                  key={index}
-                  placeholder={placeholder}
-                  error={error}
-                  pathname={pathname}
-                />
-              );
-            })}
+    <div className="w-full h-[60vh] flex justify-center">
+      <Form
+        method="post"
+        action={pathname}
+        onSubmit={onCreateHandler}
+        className="w-3/6 h-fit"
+      >
+        <input type="hidden" id={pathname} name={pathname} />
+        <div className="grid grid-cols-2 w-full h-[10vh]">
+          <div className="flex w-full h-full justify-end items-center">
+            {pathname === "/login" ? (
+              <h1 className="text-3xl prata-regular">Login</h1>
+            ) : (
+              <h1 className="text-3xl prata-regular">Sign Up</h1>
+            )}
+          </div>
+          <div className="flex justify-start items-center h-full w-full">
+            <div className="bg-slate-950 h-[5%] w-[50px] ml-[0.5rem]" />
           </div>
         </div>
-        <div className="w-full h-[20vh]">
-          {!loading ? (
-            <button
-              type="submit"
-              className="w-3/5 h-[40%] mt-[1rem] bg-red-500 text-white rounded-md mb-[0.5rem]"
-            >
-              {pathname === "/signup" ? "Create your account" : "Login"}
-            </button>
-          ) : (
-            <TailSpin height="60" width="60" radius="4" color="red" />
-          )}
-
-          <div className="flex w-3/5 h-[40%]">
-            {pathname === "/signup" ? (
-              <>
-                <p className="text-sm mr-[0.5rem]">Already have an account?</p>
-                <Link
-                  to="/login"
-                  onClick={onChangeFormHandler}
-                  className="text-sm underline text-semibold"
-                >
-                  Log in
-                </Link>{" "}
-              </>
+        <div className="flex flex-col gap-[1rem] w-full h-full">
+          {placeholders.map((placeholder, index) => {
+            return (
+              <AuthInput
+                key={index}
+                placeholder={placeholder}
+                error={error}
+                pathname={pathname}
+              />
+            );
+          })}
+        </div>
+        <div className="grid grid-rows-[1fr,4fr] mt-[1rem]">
+          <div className="flex justify-end w-full h-full">
+            {pathname === "/login" ? (
+              <NavLink
+                className="hover:cursor-pointer text-sm"
+                to="/signup"
+                onClick={onChangeFormHandler}
+              >
+                Create account
+              </NavLink>
             ) : (
-              <>
-                <p className="text-sm mr-[0.5rem]">No account?</p>
-                <Link
-                  to="/signup"
-                  onClick={onChangeFormHandler}
-                  className="text-sm underline text-semibold"
-                >
-                  Sign up
-                </Link>
-              </>
+              <NavLink
+                className="hover:cursor-pointer text-sm"
+                to="/login"
+                onClick={onChangeFormHandler}
+              >
+                Login Here
+              </NavLink>
+            )}
+          </div>
+          <div className="flex justify-center items-center w-full h-full">
+            {loading ? (
+              <TailSpin height="60" width="60" radius="4" color="black" />
+            ) : (
+              <button className="w-2/5 h-1/2 bg-slate-950 text-white hover:cursor-pointer">
+                {pathname === "/login" ? "Sign In" : "Sign Up"}
+              </button>
             )}
           </div>
         </div>
-      </div>
-    </Form>
+      </Form>
+    </div>
   );
 };
 
@@ -162,8 +156,10 @@ export async function action({ request }) {
 
   const response = await authenticate(user, route);
 
+  console.log(response);
+
   if (response.status === 200) {
-    return {status: response.status, isAdmin: response.data.admin}
+    return { status: response.status, isAdmin: response.data.admin };
   }
 
   return response;

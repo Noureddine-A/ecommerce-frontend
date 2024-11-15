@@ -14,7 +14,7 @@ const Home = () => {
             </div>
           </div>
           <div classname="h-[40%] w-full">
-            <h1 className="prata-regular text-6xl">Latest Arrivals</h1>
+            <h1 className="prata-regular text-5xl">Latest Arrivals</h1>
           </div>
           <div className="flex w-full h-[20%]">
             <div className="flex items-center h-full w-fit">
@@ -26,10 +26,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div
-        className="h-full w-[50%]">
-          <img className="h-full w-full" src={Hero} alt={Hero}/>
-        </div>
+      <div className="h-full w-[50%]">
+        <img className="h-full w-full" src={Hero} alt={Hero} />
+      </div>
     </div>
   );
 };

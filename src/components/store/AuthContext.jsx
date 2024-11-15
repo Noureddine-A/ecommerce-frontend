@@ -12,18 +12,13 @@ const AuthContextProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   function changeAuth(auth) {
+    localStorage.setItem("auth", auth);
     setIsAuth(auth);
   }
 
   function changeAdmin(value) {
-    // Fix that the user state persists after page reload by sending a request to the backend requesting whether the user is authenticated and then use that info
-    // to reload the isAdmin state to true 
-    if (!localStorage.getItem("admin")) {
-      localStorage.setItem("admin", true);
-      setIsAdmin(value);
-    } else {
-      setIsAdmin(localStorage.getItem("admin"));
-    }
+    localStorage.setItem("admin", value);
+    setIsAdmin(value);
   }
 
   let ctxValue = {

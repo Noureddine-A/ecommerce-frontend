@@ -19,7 +19,7 @@ const Footer = () => {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-2 h-full w-full">
+        <div className="grid grid-cols-2 h-full w-full mt-[1rem]">
           <div className="grid justify-center grid-rows-[1fr,4fr] h-full w-full">
             <h1 className="font-bold text-2xl">COMPANY</h1>
             <div className="flex flex-col gap-[0.5rem] h-full w-full">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const AuthInput = ({ placeholder, error}) => {
+const AuthInput = ({ placeholder, error }) => {
   const [inputError, setInputError] = useState({ err: false, errorMsg: null });
 
   let type = "text";
@@ -9,7 +9,7 @@ const AuthInput = ({ placeholder, error}) => {
     type = "password";
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     setInputError({ err: false, errorMsg: null });
 
     const uncapitalized =
@@ -22,25 +22,29 @@ const AuthInput = ({ placeholder, error}) => {
         }
       });
     }
-
   }, [error, placeholder]);
 
   return (
     <div className="flex w-full h-16">
-      <input
-        className={
-          inputError.err === false
-            ? "w-full h-full outline-none border-b-2 border-gray-300"
-            : "w-3/5 h-full outline-none border-b-2 border-red-500"
-        }
-        type={type}
-        name={placeholder}
-        placeholder={placeholder}
-      />
-      {inputError.err === true && (
-        <div className="flex items-center w-2/5 h-full outline-none border-b-2 border-red-500">
-          <p className="text-red-500">{inputError.errorMsg}</p>
-        </div>
+      {!inputError.err ? (
+        <input
+          className="w-full h-full border-2 border-gray-500 px-[1rem]"
+          placeholder={placeholder}
+          type={type}
+          name={placeholder}
+        />
+      ) : (
+        <>
+          <input
+            className="w-[75%] h-full border-2 border-red-500 px-[1rem] border-r-0 outline-none"
+            placeholder={placeholder}
+            type={type}
+            name={placeholder}
+          />
+          <div className="flex items-center w-[25%] h-full border-2 border-red-500 border-l-0">
+            <p className="text-red-500 text-sm">{inputError.errorMsg}</p>
+          </div>
+        </>
       )}
     </div>
   );

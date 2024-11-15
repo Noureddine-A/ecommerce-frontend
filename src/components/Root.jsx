@@ -9,7 +9,7 @@ const Root = () => {
     <AuthContextProvider>
       <div className="block mx-[5rem]">
         <Navbar />
-        <div className="h-[85vh] w-full">
+        <div className="h-fit w-full">
           <Outlet />
         </div>
         <Footer />
