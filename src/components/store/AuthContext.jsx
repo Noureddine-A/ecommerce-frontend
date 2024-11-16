@@ -9,26 +9,14 @@ export const AuthContext = createContext({
 const AuthContextProvider = ({ children }) => {
   const [login, setLogin] = useState(false);
 
-  function loginUser(isAdmin) {
-    if (isAdmin) {
-      localStorage.setItem("admin", true);
-    } else {
-      localStorage.setItem("admin", false);
-    }
-
-    localStorage.setItem("auth", true);
-
-    setLogin(true);
+  function changeAuth(auth) {
+    localStorage.setItem("auth", auth);
+    setIsAuth(auth);
   }
 
-  function logoutUser() {
-    if (localStorage.getItem("admin") === "true") {
-      localStorage.removeItem("admin");
-    }
-
-    localStorage.removeItem("auth");
-
-    setLogin(false);
+  function changeAdmin(value) {
+    localStorage.setItem("admin", value);
+    setIsAdmin(value);
   }
 
   let ctxValue = {
