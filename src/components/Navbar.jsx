@@ -117,7 +117,7 @@ const Navbar = () => {
                       isAdmin() === "true" ? "grid-rows-3" : "grid-rows-2"
                     } items-center w-full h-full text-black text-sm`}
                   >
-                    {isAdmin() === "true" && <NavLink>Admin Panel</NavLink>}
+                    {isAdmin() === "true" && <NavLink to="/admin">Admin Panel</NavLink>}
                     <NavLink>Orders</NavLink>
                     {isAuth() === "true" ? (
                       <p
