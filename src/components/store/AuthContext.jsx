@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext} from "react";
 
 export const AuthContext = createContext({
   login: null,
@@ -7,22 +7,18 @@ export const AuthContext = createContext({
 });
 
 const AuthContextProvider = ({ children }) => {
-  const [login, setLogin] = useState(false);
 
   function changeAuth(auth) {
     localStorage.setItem("auth", auth);
-    setIsAuth(auth);
   }
 
   function changeAdmin(value) {
     localStorage.setItem("admin", value);
-    setIsAdmin(value);
   }
 
   let ctxValue = {
-    login,
-    loginUser,
-    logoutUser,
+    changeAuth,
+    changeAdmin
   };
 
   return (

@@ -8,6 +8,26 @@ const apiClient = axios.create({
   withXSRFToken: true,
 });
 
+export async function addProduct(product) {
+  try {
+    const response = await apiClient.post(
+      BASE_URL + "/api/admin/add-product",
+      JSON.stringify(product),
+      {
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function addCategory(category) {
   try {
     const response = await apiClient.post(

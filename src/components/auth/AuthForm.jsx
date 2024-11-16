@@ -156,8 +156,6 @@ export async function action({ request }) {
 
   const response = await authenticate(user, route);
 
-  console.log(response);
-
   if (response.status === 200) {
     return { status: response.status, isAdmin: response.data.admin };
   }

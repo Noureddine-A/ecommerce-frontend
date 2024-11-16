@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { action as authAction } from "./components/auth/AuthForm";
+import { action as productAction } from "./components/admin/AddProduct";
 
 import Root from "./components/Root";
 import AuthForm from "./components/auth/AuthForm";
@@ -30,14 +31,12 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminRoot />,
-        loader: adminLoader,
         children: [
           {
             index: true,
             path: "add-product",
             element: <AddProduct />,
-            loader: productLoader,
-            action: addProductAction,
+            action: productAction,
           },
         ],
       },
