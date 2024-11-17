@@ -12,12 +12,12 @@ export async function addProduct(product) {
   try {
     const response = await apiClient.post(
       BASE_URL + "/api/admin/add-product",
-      JSON.stringify(product),
+      product,
       {
         headers: {
           "X-Requested-With": "XMLHttpRequest",
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: "multipart/form-data",
+          "Content-Type": "multipart/form-data",
         },
       }
     );

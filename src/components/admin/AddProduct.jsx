@@ -3,12 +3,17 @@ import { Form } from "react-router-dom";
 import { addProduct } from "./util/adminHttp";
 
 const AddProduct = () => {
+  function handleFileEvent(e) {
+    console.log(e.target.files);
+  }
   return (
     <div className="h-[70vh] w-full">
       <Form
         method="post"
         action="/admin/add-product"
         className="grid grid-cols-2 h-full w-full"
+        onSubmit={handleFileEvent}
+        encType="multipart/form-data"
       >
         <div className="grid grid-rows-[1fr,1fr,1fr,4fr] h-full w-full">
           <h1 className="text-2xl">Add Product</h1>
@@ -51,9 +56,9 @@ const AddProduct = () => {
           <div className="grid grid-rows-2 h-full w-full">
             <label htmlFor="categories">Category</label>
             <select className="w-[70%]" name="categories" id="categories">
-              <option value="kids">Kids</option>
-              <option value="women">Women</option>
-              <option value="men">Men</option>
+              <option value="1">Kids</option>
+              <option value="2">Women</option>
+              <option value="3">Men</option>
             </select>
           </div>
           <div className="grid grid-rows-2 h-full w-full">
@@ -109,7 +114,6 @@ const AddProduct = () => {
               name="images"
               id="images"
               multiple
-              className=""
             />
           </div>
           <div className="flex items-center h-full w-full">
@@ -135,7 +139,7 @@ export async function action({ request }) {
     category: formData.get("categories"),
     subCategory: formData.get("subCategories"),
     sizes: getSizes(formData),
-    images: formData.get("images"),
+    images: formData.getAll("images"),
   };
 
   const response = addProduct(product);
