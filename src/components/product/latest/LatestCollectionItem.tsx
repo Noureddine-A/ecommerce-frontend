@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Product } from "../../../types/Product";
 
 const LatestCollectionItem: React.FC<{
+  id: number;
   image: string;
   name: string;
   price: number;
+  product: Product;
 }> = (props) => {
   const [image, setImage] = useState<string>();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     let b64String = "";
@@ -18,8 +24,15 @@ const LatestCollectionItem: React.FC<{
     setImage(b64String);
   }, []);
 
+  function onItemClickHandler() {
+    navigate("/product/" + props.id, { state: props.product });
+  }
+
   return (
-    <div className="grid grid-rows-[8fr,1fr,1fr] w-[160px] h-[20rem] mr-auto hover:cursor-pointer">
+    <div
+      className="grid grid-rows-[8fr,1fr,1fr] w-[165px] h-[20rem] mr-auto hover:cursor-pointer"
+      onClick={onItemClickHandler}
+    >
       <div className="w-full overflow-hidden">
         <img
           className="h-full w-full hover:transform hover:scale-110 transition ease-in-out"

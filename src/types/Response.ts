@@ -1,6 +1,6 @@
 export class Response {
   error: boolean;
-  message: string | Error 
+  message: string | Error
   isAdmin: boolean
 
   constructor(error: boolean, message: string | Error, isAdmin: boolean) {

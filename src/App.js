@@ -3,11 +3,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { action as authAction } from "./components/auth/AuthForm.tsx";
 import { action as productAction } from "./components/admin/AddProduct.tsx";
 
+import { loader as latestCollectionLoader } from "./components/Home.tsx";
+
 import Root from "./components/Root.tsx";
 import AuthForm from "./components/auth/AuthForm.tsx";
 import Home from "./components/Home.tsx";
 import AddProduct from "./components/admin/AddProduct.tsx";
 import AdminRoot from "./components/admin/AdminRoot.tsx";
+import ProductDetail from "./components/product/ProductDetail.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +20,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+        loader: latestCollectionLoader,
       },
       {
         path: "/signup",
@@ -40,6 +44,10 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "/product/:productId",
+        element: <ProductDetail/>
+      }
     ],
   },
 ]);

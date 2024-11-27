@@ -20,6 +20,7 @@ export async function getLatestCollection(): Promise<Product[]> {
 
   const latestCollection: Product[] = response.data.map((product) => {
     return new Product(
+      product["product"].id,
       product["product"].name,
       product["product"].price,
       product["product"].description,

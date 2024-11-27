@@ -106,8 +106,8 @@ const AddProduct = () => {
           <div className="grid grid-rows-2 h-full w-full">
             <label htmlFor="categories">Subcategory</label>
             <select className="w-[70%]" name="subCategories" id="subCategories">
-              <option value="topwear">Topwear</option>
-              <option value="bottomwear">Bottomwear</option>
+              <option value="Topwear">Topwear</option>
+              <option value="Bottomwear">Bottomwear</option>
             </select>
           </div>
           <div className="grid grid-rows-2 h-full w-full">
@@ -142,9 +142,9 @@ const AddProduct = () => {
                 </label>
                 <input
                   type="checkbox"
-                  id="extraLarge"
+                  id="extra large"
                   name="sizes"
-                  value="extraLarge"
+                  value="extra large"
                 />
               </div>
             </div>

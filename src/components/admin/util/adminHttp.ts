@@ -26,6 +26,7 @@ export async function addProduct(product: Product) {
 
     return new Response(false, "Success", true);
   } catch (error) {
+    console.log(error);
     if (error.status === 403) {
       return new Response(true, error.response.data.message, false);
     }
