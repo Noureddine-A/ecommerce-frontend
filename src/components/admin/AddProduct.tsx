@@ -38,7 +38,7 @@ const AddProduct = () => {
   }
 
   return (
-    <div className="h-[70vh] w-full">
+    <div className="h-[70vh] w-full mb-[2rem]">
       <Form
         method="post"
         action="/admin/add-product"

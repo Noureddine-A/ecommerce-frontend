@@ -1,5 +1,4 @@
 export class Product {
-  id: number;
   name: string;
   price: number;
   description: string;
@@ -7,9 +6,9 @@ export class Product {
   subCategory: string;
   sizes: string[];
   images: string[];
+  id: number;
 
   constructor(
-    id: number,
     name: string,
     price: number,
     description: string,
@@ -18,7 +17,6 @@ export class Product {
     sizes: string[],
     images: string[]
   ) {
-    this.id = id;
     this.name = name;
     this.price = price;
     this.description = description;
@@ -26,5 +24,9 @@ export class Product {
     this.subCategory = subCategory;
     this.sizes = sizes;
     this.images = images;
+  }
+
+  setProductId(id: number) {
+    this.id = id;
   }
 }

@@ -4,10 +4,11 @@ import Hero from "../assets/images/hero_img.png";
 import LatestCollection from "./product/latest/LatestCollection.tsx";
 import { getLatestCollection } from "./product/util/productHttp.ts";
 import OurPolicy from "./policy/OurPolicy.tsx";
+import Footer from "./Footer.tsx";
 
 const Home = () => {
   return (
-    <div className="h-[00vh] w-full">
+    <div className="h-[100vh] w-full">
       <div className="flex flex-cols w-full h-[60vh] border-2 border-gray-300 max-[820px]:h-[80vh] max-sm:grid max-sm:grid-rows-[1fr,2fr] max-sm:h-fit">
         <div className="flex justify-center items-center h-full w-full">
           <div className="flex-row h-fit w-3/5 max-lg:w-4/6 max-[820px]:w-4/5">
@@ -40,6 +41,7 @@ const Home = () => {
       </div>
       <LatestCollection />
       <OurPolicy />
+      <Footer />
     </div>
   );
 };

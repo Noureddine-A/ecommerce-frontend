@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import {
   Link,
   Form,
@@ -16,6 +16,7 @@ import { authenticate } from "./util/http.ts";
 import { User } from "../../types/User.ts";
 import { Response } from "../../types/Response.ts";
 import { Error } from "../../types/Error.ts";
+import Footer from "../Footer.tsx";
 
 const AuthForm = () => {
   const [loading, setLoading] = useState(false);
@@ -70,7 +71,8 @@ const AuthForm = () => {
   }
 
   return (
-    <div className="w-full h-[60vh] flex justify-center">
+    <Fragment>
+    <div className="w-full h-[70vh] flex justify-center">
       <Form
         method="post"
         action={pathname}
@@ -134,6 +136,8 @@ const AuthForm = () => {
         </div>
       </Form>
     </div>
+    <Footer/>
+    </Fragment>
   );
 };
 

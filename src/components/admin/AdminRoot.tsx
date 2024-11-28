@@ -1,14 +1,14 @@
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Footer from "../Footer.tsx";
 
 const AdminRoot = () => {
-  const navigate = useNavigate();
-
 
   return (
     <div className="flex w-full h-full">
       <div className="w-full h-full">
         <Outlet />
+        <Footer/>
       </div>
     </div>
   );

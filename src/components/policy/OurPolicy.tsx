@@ -26,8 +26,8 @@ const policies = [
 
 const OurPolicy = () => {
   return (
-    <div className="h-fit w-full">
-      <div className="flex flex-wrap w-full h-[40vh] max-sm:h-[25vh]">
+    <div className="h-fit w-full max-sm:h-fit max-lg:mb-[2rem]">
+      <div className="flex flex-wrap w-full h-fit">
         {policies.map((policy) => {
           return (
             <OurPolicyItem

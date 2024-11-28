@@ -14,7 +14,6 @@ const Root = () => {
       <div className="min-h-[100vh] w-full px-[5rem] max-lg:px-[1rem]">
         <Outlet />
       </div>
-      {/* <Footer /> */}
     </AuthContextProvider>
   );
 };

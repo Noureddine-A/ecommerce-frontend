@@ -19,8 +19,7 @@ export async function getLatestCollection(): Promise<Product[]> {
   });
 
   const latestCollection: Product[] = response.data.map((product) => {
-    return new Product(
-      product["product"].id,
+    const p = new Product(
       product["product"].name,
       product["product"].price,
       product["product"].description,
@@ -29,6 +28,9 @@ export async function getLatestCollection(): Promise<Product[]> {
       product["product"].sizeList,
       product["product"].images
     );
+    p.setProductId(product["product"].id);
+
+    return p;
   });
 
   return latestCollection;
