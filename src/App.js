@@ -4,6 +4,7 @@ import { action as authAction } from "./components/auth/AuthForm.tsx";
 import { action as productAction } from "./components/admin/AddProduct.tsx";
 
 import { loader as latestCollectionLoader } from "./components/Home.tsx";
+import { loader as collectionLoader } from "./components/product/collection/Collections.tsx";
 
 import Root from "./components/Root.tsx";
 import AuthForm from "./components/auth/AuthForm.tsx";
@@ -11,6 +12,7 @@ import Home from "./components/Home.tsx";
 import AddProduct from "./components/admin/AddProduct.tsx";
 import AdminRoot from "./components/admin/AdminRoot.tsx";
 import ProductDetail from "./components/product/ProductDetail.tsx";
+import Collections from "./components/product/collection/Collections.tsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,11 @@ const router = createBrowserRouter([
         action: authAction,
       },
       {
+        path: "/collection",
+        element: <Collections />,
+        loader: collectionLoader,
+      },
+      {
         path: "/admin",
         element: <AdminRoot />,
         children: [
@@ -46,8 +53,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/product/:productId",
-        element: <ProductDetail/>
-      }
+        element: <ProductDetail />,
+      },
     ],
   },
 ]);
