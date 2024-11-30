@@ -19,6 +19,23 @@ const Collections = () => {
     }
   }, []);
 
+  useEffect(() => {
+    let filteredList: Product[] = [];
+
+    if (filterOptions.length === 0) {
+      return setCollectionList(loaderData);
+    }
+
+    filterOptions.forEach((filterOption) => {
+      loaderData.filter((product) => {
+        if (filterOption === product.category) {
+          filteredList.push(product);
+        }
+      });
+    });
+    setCollectionList(filteredList);
+  }, [filterOptions]);
+
   function onFilterClicked() {
     if (showFilter === false) {
       return setShowFilter(true);
@@ -26,8 +43,20 @@ const Collections = () => {
     setShowFilter(false);
   }
 
-  function onFilterProductsClicked(event) {
-    console.log(event.target.id);
+  function onFilterCategoriesClicked(event) {
+
+    if (!filterOptions.includes(event.target.id)) {
+      setFilterOptions((previousState) => {
+        return [...previousState, event.target.id];
+      });
+    } else {
+      const removedFromList = filterOptions.filter((option) => {
+        if (option !== event.target.id) {
+          return option;
+        }
+      });
+      setFilterOptions(removedFromList);
+    }
   }
 
   return (
@@ -47,7 +76,7 @@ const Collections = () => {
           </div>
         </div>
         <div
-          className={`flex flex-col w-full h-[25vh] border-[1px] border-gray-300 pl-[1rem] pt-[1rem] gap-[0.5rem] ${
+          className={`flex flex-col w-full h-fit pb-[1rem] border-[1px] border-gray-300 pl-[1rem] pt-[1rem] gap-[0.5rem] ${
             !showFilter ? "max-sm:hidden" : "max-sm:visible"
           }`}
         >
@@ -56,8 +85,8 @@ const Collections = () => {
             <input
               type="checkbox"
               value="men"
-              id="men"
-              onClick={onFilterProductsClicked}
+              id="Men"
+              onClick={onFilterCategoriesClicked}
             />
             <p className="text-sm">Men</p>
           </div>
@@ -65,8 +94,8 @@ const Collections = () => {
             <input
               type="checkbox"
               value="women"
-              id="women"
-              onClick={onFilterProductsClicked}
+              id="Women"
+              onClick={onFilterCategoriesClicked}
             />
             <p className="text-sm">Women</p>
           </div>
@@ -74,14 +103,14 @@ const Collections = () => {
             <input
               type="checkbox"
               value="kids"
-              id="kids"
-              onClick={onFilterProductsClicked}
+              id="Kids"
+              onClick={onFilterCategoriesClicked}
             />
             <p className="text-sm">Kids</p>
           </div>
         </div>
         <div
-          className={`flex flex-col w-full h-[20vh] border-[1px] border-gray-300 pl-[1rem] pt-[1rem] gap-[0.5rem] ${
+          className={`flex flex-col w-full h-fit border-[1px] border-gray-300 pl-[1rem] pt-[1rem] gap-[0.5rem] pb-[1rem] ${
             !showFilter ? "max-sm:hidden" : "max-sm:visible"
           }`}
         >

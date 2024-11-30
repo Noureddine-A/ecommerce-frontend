@@ -22,7 +22,7 @@ const LatestCollectionItem: React.FC<{
     }
 
     setImage(b64String);
-  }, []);
+  }, [props.image]);
 
   function onItemClickHandler() {
     navigate("/product/" + props.id, { state: props.product });
@@ -30,7 +30,7 @@ const LatestCollectionItem: React.FC<{
 
   return (
     <div
-      className="grid grid-rows-[8fr,2fr,1fr] w-[165px] h-[45vh] mr-auto hover:cursor-pointer mb-[1rem]"
+      className="grid grid-rows-[8fr,2fr,1fr] w-[220px] h-[45vh] mr-auto hover:cursor-pointer mb-[1rem]"
       onClick={onItemClickHandler}
     >
       <div className="w-full overflow-hidden">
