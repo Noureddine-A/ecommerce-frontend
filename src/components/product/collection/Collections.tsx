@@ -10,6 +10,8 @@ const Collections = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [collectionList, setCollectionList] = useState<Product[]>([]);
   const [filterOptions, setFilterOptions] = useState<string[]>([]);
+  const [filterTypeOptions, setFilterTypeOptions] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<string>("relevant");
 
   const loaderData = useLoaderData() as Product[];
 
@@ -21,6 +23,7 @@ const Collections = () => {
 
   useEffect(() => {
     let filteredList: Product[] = [];
+    let filteredOnTypeList: Product[] = [];
 
     if (filterOptions.length === 0) {
       return setCollectionList(loaderData);
@@ -33,8 +36,21 @@ const Collections = () => {
         }
       });
     });
-    setCollectionList(filteredList);
-  }, [filterOptions]);
+
+    filterTypeOptions.forEach((typeFilter) => {
+      filteredList.filter((product) => {
+        if (product.subCategory === typeFilter) {
+          filteredOnTypeList.push(product);
+        }
+      });
+
+      return setCollectionList(sortProducts(filteredOnTypeList));
+    });
+
+    if (filterTypeOptions.length === 0) {
+      setCollectionList(sortProducts(filteredList));
+    }
+  }, [filterOptions, filterTypeOptions]);
 
   function onFilterClicked() {
     if (showFilter === false) {
@@ -44,7 +60,6 @@ const Collections = () => {
   }
 
   function onFilterCategoriesClicked(event) {
-
     if (!filterOptions.includes(event.target.id)) {
       setFilterOptions((previousState) => {
         return [...previousState, event.target.id];
@@ -57,6 +72,58 @@ const Collections = () => {
       });
       setFilterOptions(removedFromList);
     }
+  }
+
+  function onFilterTypeClicked(event) {
+    if (!filterTypeOptions.includes(event.target.id)) {
+      setFilterTypeOptions((previousState) => {
+        return [...previousState, event.target.id];
+      });
+    } else {
+      const removedFromList = filterTypeOptions.filter((option) => {
+        if (option !== event.target.id) {
+          return option;
+        }
+      });
+      setFilterTypeOptions(removedFromList);
+    }
+  }
+
+  function onSortByClicked(event) {
+    if (event.target.value !== sortBy) {
+      setSortBy(event.target.value);
+
+      if (event.target.value === "relevant") {
+        setCollectionList(collectionList.sort());
+      }
+    }
+  }
+
+  function sortProducts(products: Product[]): Product[] {
+    let sortedList: Product[] = [];
+    if (sortBy === "relevant") {
+      let productIds = products.map((product) => {
+        return product.id;
+      });
+
+      productIds.sort((a, b) => {
+        return a - b;
+      });
+
+      productIds.forEach((id) => {
+        products.forEach((product) => {
+          if (product.id === id) {
+            sortedList = [...sortedList, product];
+          }
+        });
+      });
+    }
+
+    //Figure out a way to sort from low to high and from high to low
+    else if (sortBy === "lowtohigh") {
+    }
+
+    return sortedList;
   }
 
   return (
@@ -116,11 +183,21 @@ const Collections = () => {
         >
           <h2 className="text-sm font-bold">Type</h2>
           <div className="inline-flex gap-[0.5rem]">
-            <input type="checkbox" value="Topwear" id="Topwear" />
+            <input
+              type="checkbox"
+              value="Topwear"
+              id="Topwear"
+              onChange={onFilterTypeClicked}
+            />
             <p className="text-sm">Topwear</p>
           </div>
           <div className="inline-flex gap-[0.5rem]">
-            <input type="checkbox" value="Bottomwear" id="Bottomwear" />
+            <input
+              type="checkbox"
+              value="Bottomwear"
+              id="Bottomwear"
+              onClick={onFilterTypeClicked}
+            />
             <p className="text-sm">Bottomwear</p>
           </div>
         </div>
@@ -137,6 +214,7 @@ const Collections = () => {
               className="h-1/2 w-full text-sm pl-[0.5rem] border-2 border-gray-300"
               name="sort"
               id="sort"
+              onClick={onSortByClicked}
             >
               <option value="relevant">Sort by: Relevant</option>
               <option value="lowtohigh">Sort by: Low to High</option>
