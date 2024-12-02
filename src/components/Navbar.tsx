@@ -12,9 +12,12 @@ import Menu from "../assets/images/menu_icon.png";
 import Dropdown from "../assets/images/dropdown_icon.png";
 
 import { isAuth, isAdmin } from "../components/auth/util/is-auth";
+import { SearchContext } from "./store/SearchContext.tsx";
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
+  const searchContext = useContext(SearchContext);
+
   const navigate = useNavigate();
 
   const [visible, setVisibile] = useState(false);
@@ -48,6 +51,13 @@ const Navbar = () => {
 
   function onLogoClickHandler() {
     navigate("/");
+  }
+
+  function onSearchClicked() {
+    if (searchContext.visible === false) {
+      return searchContext.showSearchField(true);
+    }
+    searchContext.showSearchField(false);
   }
 
   return (
@@ -109,6 +119,7 @@ const Navbar = () => {
               className="h-6 hover:cursor-pointer"
               src={Search}
               alt={Search}
+              onClick={onSearchClicked}
             />
           </div>
           <div className="flex items-center">
@@ -189,7 +200,7 @@ const Navbar = () => {
               </NavLink>
             </div>
             <div className="flex items-center w-full h-1/4 border-b-2">
-              <NavLink to="/" className="ml-[1rem]">
+              <NavLink to="/collection" className="ml-[1rem]">
                 COLLECTION
               </NavLink>
             </div>

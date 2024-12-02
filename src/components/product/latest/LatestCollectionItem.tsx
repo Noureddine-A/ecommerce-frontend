@@ -30,7 +30,7 @@ const LatestCollectionItem: React.FC<{
 
   return (
     <div
-      className="grid grid-rows-[8fr,2fr,1fr] w-[220px] h-[45vh] mr-auto hover:cursor-pointer mb-[1rem]"
+      className="grid grid-rows-[8fr,1fr,1fr] w-[220px] h-[45vh] mr-auto hover:cursor-pointer mb-[1rem] max-lg:w-[240px] max-[375px]:w-[150px] max-[414px]:w-[170px] max-[430px]:w-[195px]"
       onClick={onItemClickHandler}
     >
       <div className="w-full overflow-hidden">
@@ -40,7 +40,7 @@ const LatestCollectionItem: React.FC<{
           alt={image}
         />
       </div>
-      <div className="flex w-full">
+      <div className="flex items-center w-full">
         <p className="text-[12px]">{props.name}</p>
       </div>
       <div className="w-full">
