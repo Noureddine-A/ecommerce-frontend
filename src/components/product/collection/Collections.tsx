@@ -23,6 +23,7 @@ const Collections = () => {
 
   useEffect(() => {
     if (loaderData.length > 0) {
+      setFilterList(loaderData);
       setCollectionList(loaderData);
     }
   }, []);

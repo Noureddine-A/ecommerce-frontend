@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "./store/AuthContext.tsx";
 import { logout } from "../components/auth/util/http.ts";
@@ -17,6 +17,8 @@ import { SearchContext } from "./store/SearchContext.tsx";
 const Navbar = () => {
   const authContext = useContext(AuthContext);
   const searchContext = useContext(SearchContext);
+
+  const { pathname } = useLocation();
 
   const navigate = useNavigate();
 
@@ -54,10 +56,12 @@ const Navbar = () => {
   }
 
   function onSearchClicked() {
-    if (searchContext.visible === false) {
-      return searchContext.showSearchField(true);
+    if (pathname === "/collection") {
+      if (searchContext.visible === false) {
+        return searchContext.showSearchField(true);
+      }
+      searchContext.showSearchField(false);
     }
-    searchContext.showSearchField(false);
   }
 
   return (

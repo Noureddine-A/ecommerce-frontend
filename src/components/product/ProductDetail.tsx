@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 const ProductDetail = () => {
   const { productId } = useParams();
-  const {state} = useLocation();
+  const { pathname, state } = useLocation();
 
-  console.log(state);
-  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return <div>{productId}</div>;
 };
 
