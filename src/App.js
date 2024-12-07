@@ -13,6 +13,7 @@ import AddProduct from "./components/admin/AddProduct.tsx";
 import AdminRoot from "./components/admin/AdminRoot.tsx";
 import ProductDetail from "./components/product/ProductDetail.tsx";
 import Collections from "./components/product/collection/Collections.tsx";
+import Cart from "./components/cart/Cart.tsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
         path: "/collection",
         element: <Collections />,
         loader: collectionLoader,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
       {
         path: "/admin",

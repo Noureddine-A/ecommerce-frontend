@@ -13,10 +13,12 @@ import Dropdown from "../assets/images/dropdown_icon.png";
 
 import { isAuth, isAdmin } from "../components/auth/util/is-auth";
 import { SearchContext } from "./store/SearchContext.tsx";
+import { CartContext } from "./store/CartContext.tsx";
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
   const searchContext = useContext(SearchContext);
+  const cartContext = useContext(CartContext);
 
   const { pathname } = useLocation();
 
@@ -64,9 +66,13 @@ const Navbar = () => {
     }
   }
 
+  function onCartClickHandler() {
+    navigate("/cart");
+  }
+
   return (
     <section id="navbar">
-      <div className="grid grid-cols-[1fr,4fr,1fr] w-full h-[15vh] max-sm:grid-cols-[3fr,1fr,3fr]">
+      <div className="grid grid-cols-[1fr,4fr,1fr] w-full h-[15vh] max-sm:grid-cols-[3fr,1fr,3fr] border-b-2 border-gray-200">
         <div className="flex items-center">
           <img
             src={Logo}
@@ -163,10 +169,15 @@ const Navbar = () => {
             </div>
           )}
           <div className="flex items-center relative">
-            <img className="h-6 hover:cursor-pointer" src={Cart} alt={Cart} />
+            <img
+              className="h-6 hover:cursor-pointer"
+              src={Cart}
+              alt={Cart}
+              onClick={onCartClickHandler}
+            />
             <div className="flex justify-end">
               <div className="absolute hover:cursor-pointer rounded-full bottom-[33%] w-[18px] h-[18px] text-center bg-slate-950 text-[10px] max-lg:bottom-[37%] text-white">
-                10
+                {cartContext.cartCount}
               </div>
             </div>
           </div>
