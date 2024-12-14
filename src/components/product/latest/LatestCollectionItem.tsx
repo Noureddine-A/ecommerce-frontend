@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../../types/Product";
+import { base64ToImage } from "../../util/util.ts";
 
 const LatestCollectionItem: React.FC<{
   id: number;
@@ -14,12 +15,7 @@ const LatestCollectionItem: React.FC<{
   const navigate = useNavigate();
 
   useEffect(() => {
-    let b64String = "";
-    if (props.image.startsWith("iVB")) {
-      b64String = "data:image/png;base64," + props.image;
-    } else if (props.image.startsWith("/9j")) {
-      b64String = "data:image/jpg;base64," + props.image;
-    }
+    const b64String = base64ToImage(props.image);
 
     setImage(b64String);
   }, [props.image]);
@@ -30,7 +26,7 @@ const LatestCollectionItem: React.FC<{
 
   return (
     <div
-      className="grid grid-rows-[8fr,1fr,1fr] w-[220px] h-[45vh] mr-auto hover:cursor-pointer mb-[1rem] max-lg:w-[240px] max-[375px]:w-[150px] max-[414px]:w-[170px] max-[430px]:w-[195px]"
+      className="grid grid-rows-[8fr,1fr,1fr] w-[300px] h-[45vh] mr-auto hover:cursor-pointer mb-[1rem] max-lg:w-[240px] max-[375px]:w-[150px] max-[414px]:w-[170px] max-[430px]:w-[195px]"
       onClick={onItemClickHandler}
     >
       <div className="w-full overflow-hidden">

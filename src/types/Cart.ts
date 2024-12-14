@@ -1,4 +1,4 @@
-import { Product } from "./Product";
+import { Product } from "./Product.ts";
 
 export type Cart = CartItem[];
 
@@ -9,3 +9,4 @@ export type CartItem = {
     quantity: number;
   }[];
 } | null;
+

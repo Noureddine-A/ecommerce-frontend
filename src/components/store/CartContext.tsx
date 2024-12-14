@@ -6,8 +6,8 @@ import { Product } from "../../types/Product.ts";
 import { Cart, CartItem } from "../../types/Cart.ts";
 
 export const CartContext = createContext({
+  cart: [],
   cartCount: 0,
-  cart: {},
   addToCart: (product: Product, size: string) => {},
   setCartAmount: () => {},
 });
@@ -21,7 +21,6 @@ const CartContextProvider = ({ children }) => {
   }, [cart]);
 
   function addToCart(product: Product, size: string) {
-    console.log(cart);
     if (cart.length === 0) {
       setCart([{ product: product, sizes: [{ sizeName: size, quantity: 1 }] }]);
       setCartAmount();
