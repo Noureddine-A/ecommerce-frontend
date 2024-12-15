@@ -14,8 +14,6 @@ const CartPage = () => {
   const cartContext = useContext(CartContext);
 
   useEffect(() => {
-    let cart: Cart = [];
-
     let cartList: CartList = [];
 
     cartContext.cart.forEach((cartItem: CartItem) => {

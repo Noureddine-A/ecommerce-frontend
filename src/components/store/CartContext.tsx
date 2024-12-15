@@ -10,11 +10,19 @@ export const CartContext = createContext({
   cartCount: 0,
   addToCart: (product: Product, size: string) => {},
   setCartAmount: () => {},
+  deleteFromCart: (productId: number | undefined, size: string) => {},
+  changeQuantity: (
+    quantity: number,
+    productId: number | undefined,
+    size: string
+  ) => {},
 });
 
 const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState<Cart>([]);
   const [cartCount, setCartCount] = useState<number>(0);
+
+  console.log(cart);
 
   useEffect(() => {
     setCartAmount();
@@ -68,6 +76,54 @@ const CartContextProvider = ({ children }) => {
     }
   }
 
+  function deleteFromCart(productId: number | undefined, size: string) {
+    const newCart = cart.filter((cartItem) => {
+      let newSizesList;
+
+      if (cartItem?.product.id === productId) {
+        newSizesList = cartItem?.sizes.filter((s) => {
+          return s.sizeName !== size;
+        });
+        if (cartItem !== null) {
+          cartItem.sizes = newSizesList;
+        }
+      }
+
+      return cartItem?.sizes.length !== 0;
+    });
+
+    setCart(newCart);
+  }
+
+  function changeQuantity(
+    quantity: number,
+    productId: number | undefined,
+    size: string
+  ) {
+    const newCart = cart.map((cartItem) => {
+      let newSizeList;
+
+      if (cartItem?.product.id === productId) {
+        newSizeList = cartItem?.sizes.map((s) => {
+          if (s.sizeName === size) {
+            s.quantity = quantity;
+            return s;
+          } else {
+            return s;
+          }
+        });
+        if (cartItem !== null) {
+          cartItem.sizes = newSizeList;
+        }
+      }
+
+      return cartItem;
+    });
+
+    setCartAmount();
+    setCart(newCart);
+  }
+
   function setCartAmount() {
     let count: number = 0;
 
@@ -85,6 +141,8 @@ const CartContextProvider = ({ children }) => {
     cartCount: cartCount,
     addToCart,
     setCartAmount,
+    deleteFromCart,
+    changeQuantity,
   };
 
   return (
