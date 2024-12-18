@@ -10,6 +10,7 @@ type CartList = {
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState<CartList>([]);
+  const [cartPrice, setCartPrice] = useState();
 
   const cartContext = useContext(CartContext);
 
@@ -28,6 +29,8 @@ const CartPage = () => {
     setCartItems(cartList);
   }, [cartContext.cartCount]);
 
+  console.log(cartContext.calculateCartPrice());
+
   return (
     <div className="w-full h-fit pt-[2rem]">
       <div className="flex items-center w-full h-[10vh]">
@@ -40,8 +43,43 @@ const CartPage = () => {
       </div>
       <div className="grid gap-[1rem] w-full h-fit">
         {cartItems.map((cartItem, index) => {
-         return <CartItemPage key={index} cartItem={cartItem} size={cartItem.size}/>
+          return (
+            <CartItemPage
+              key={index}
+              cartItem={cartItem}
+              size={cartItem.size}
+            />
+          );
         })}
+      </div>
+      <div className="flex justify-end w-full h-[40vh] max-sm:justify-center">
+        <div className="w-2/5 h-full max-sm:w-4/5">
+          <div className="flex items-center w-full h-1/5">
+            <h1 className="text-2xl">
+              CART <strong>TOTALS</strong>
+            </h1>
+            <div className="flex items-center w-fit h-full ml-[0.5rem]">
+              <div className="h-[2px] w-[50px] bg-slate-950" />
+            </div>
+          </div>
+          <div className="flex w-full h-fit py-[1rem] border-b-2 gray-200">
+            <h2 className="basis-3/4">Subtotal</h2>
+            <h2 className="basis-1/4">$ {cartContext.calculateCartPrice()}</h2>
+          </div>
+          <div className="flex w-full h-fit py-[1rem] border-b-2 gray-200">
+            <h2 className="basis-3/4">Shipping Fee</h2>
+            <h2 className="basis-1/4">$ 10</h2>
+          </div>
+          <div className="flex w-full h-fit py-[1rem] border-b-2 gray-200 font-bold">
+            <h2 className="basis-3/4">Total</h2>
+            <h2 className="basis-1/4">
+              $ {cartContext.calculateCartPrice() + 10}
+            </h2>
+          </div>
+          <div className="flex justify-end w-full h-fit">
+            <button className="bg-slate-950 w-1/2 my-[2rem] p-3 text-white max-xl:w-full">PROCEED TO CHECKOUT</button>
+          </div>
+        </div>
       </div>
     </div>
   );

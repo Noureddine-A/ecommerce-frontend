@@ -16,13 +16,12 @@ export const CartContext = createContext({
     productId: number | undefined,
     size: string
   ) => {},
+  calculateCartPrice: () => 0,
 });
 
 const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState<Cart>([]);
   const [cartCount, setCartCount] = useState<number>(0);
-
-  console.log(cart);
 
   useEffect(() => {
     setCartAmount();
@@ -136,6 +135,18 @@ const CartContextProvider = ({ children }) => {
     setCartCount(count);
   }
 
+  function calculateCartPrice(): number {
+    let price = 0;
+
+    cart.forEach((cartItem) => {
+      cartItem?.sizes.forEach((size) => {
+        price += size.quantity * cartItem?.product.price;
+      });
+    });
+
+    return Number(price.toFixed(2));
+  }
+
   const ctxValue = {
     cart: cart,
     cartCount: cartCount,
@@ -143,6 +154,7 @@ const CartContextProvider = ({ children }) => {
     setCartAmount,
     deleteFromCart,
     changeQuantity,
+    calculateCartPrice,
   };
 
   return (
