@@ -14,6 +14,7 @@ import AdminRoot from "./components/admin/AdminRoot.tsx";
 import ProductDetail from "./components/product/ProductDetail.tsx";
 import Collections from "./components/product/collection/Collections.tsx";
 import Cart from "./components/cart/Cart.tsx";
+import PlaceOrder from "./components/order/PlaceOrder.tsx";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/place-order",
+        element: <PlaceOrder />,
       },
       {
         path: "/admin",

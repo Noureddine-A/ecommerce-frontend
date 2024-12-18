@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../store/CartContext.tsx";
 import CartItemPage from "./CartItem.tsx";
 import { Cart, CartItem } from "../../types/Cart.ts";
+import { useNavigate } from "react-router-dom";
 
 type CartList = {
   cartItem: CartItem;
@@ -10,7 +11,8 @@ type CartList = {
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState<CartList>([]);
-  const [cartPrice, setCartPrice] = useState();
+
+  const navigate = useNavigate();
 
   const cartContext = useContext(CartContext);
 
@@ -29,7 +31,14 @@ const CartPage = () => {
     setCartItems(cartList);
   }, [cartContext.cartCount]);
 
-  console.log(cartContext.calculateCartPrice());
+  function onNavigateToPlaceOrderHandler() {
+    navigate("/place-order", {
+      state: {
+        cart: cartContext.cart,
+        price: cartContext.calculateCartPrice() + 10,
+      },
+    });
+  }
 
   return (
     <div className="w-full h-fit pt-[2rem]">
@@ -77,7 +86,12 @@ const CartPage = () => {
             </h2>
           </div>
           <div className="flex justify-end w-full h-fit">
-            <button className="bg-slate-950 w-1/2 my-[2rem] p-3 text-white max-xl:w-full">PROCEED TO CHECKOUT</button>
+            <button
+              onClick={onNavigateToPlaceOrderHandler}
+              className="bg-slate-950 w-1/2 my-[2rem] p-3 text-white max-xl:w-full"
+            >
+              PROCEED TO CHECKOUT
+            </button>
           </div>
         </div>
       </div>
