@@ -1,10 +1,8 @@
 import { Cart } from "./Cart";
-import { User } from "./User";
 
 export class Order {
   cart: Cart;
   price: number;
-  user: User;
   streetName: string;
   city: string;
   state: string;
@@ -14,7 +12,6 @@ export class Order {
 
   constructor(
     cart: Cart,
-    user: User,
     price: number,
     streetName: string,
     city: string,
@@ -24,7 +21,6 @@ export class Order {
     phone: string
   ) {
     this.cart = cart;
-    this.user = user;
     this.price = price;
     this.streetName = streetName;
     this.city = city;

@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { action as authAction } from "./components/auth/AuthForm.tsx";
 import { action as productAction } from "./components/admin/AddProduct.tsx";
+import { action as orderAction } from "./components/order/PlaceOrder.tsx";
 
 import { loader as latestCollectionLoader } from "./components/Home.tsx";
 import { loader as collectionLoader } from "./components/product/collection/Collections.tsx";
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
       {
         path: "/place-order",
         element: <PlaceOrder />,
+        action: orderAction,
       },
       {
         path: "/admin",
