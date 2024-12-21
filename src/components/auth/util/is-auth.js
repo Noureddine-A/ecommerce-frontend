@@ -1,5 +1,5 @@
 export function isAdmin() {
-  if (localStorage.getItem("admin") === "true") {
+  if (sessionStorage.getItem("admin") === "true") {
     return true;
   }
 
@@ -7,7 +7,7 @@ export function isAdmin() {
 }
 
 export function isAuth() {
-  if (localStorage.getItem("auth") === "true") {
+  if (sessionStorage.getItem("auth") === "true") {
     return true;
   }
 

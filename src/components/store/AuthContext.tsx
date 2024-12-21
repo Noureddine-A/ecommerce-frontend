@@ -10,11 +10,11 @@ export const AuthContext = createContext({
 const AuthContextProvider = ({ children }) => {
 
   function changeAuth(auth: string) {
-    localStorage.setItem("auth", auth);
+    sessionStorage.setItem("auth", auth);
   }
 
   function changeAdmin(value: string) {
-    localStorage.setItem("admin", value);
+    sessionStorage.setItem("admin", value);
   }
 
   let ctxValue = {

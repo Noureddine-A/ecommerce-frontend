@@ -4,6 +4,7 @@ import { createContext } from "react";
 
 import { Product } from "../../types/Product.ts";
 import { Cart, CartItem } from "../../types/Cart.ts";
+import { getCart, saveCart } from "../util/util.ts";
 
 export const CartContext = createContext({
   cart: [],
@@ -30,6 +31,9 @@ const CartContextProvider = ({ children }) => {
   function addToCart(product: Product, size: string) {
     if (cart.length === 0) {
       setCart([{ product: product, sizes: [{ sizeName: size, quantity: 1 }] }]);
+      saveCart([
+        { product: product, sizes: [{ sizeName: size, quantity: 1 }] },
+      ]);
       setCartAmount();
     }
 
@@ -56,6 +60,7 @@ const CartContextProvider = ({ children }) => {
           newCartItem.sizes.push({ sizeName: size, quantity: 1 });
           newCart[index] = newCartItem;
 
+          saveCart(newCart);
           setCart(newCart);
           setCartAmount();
         }
@@ -91,6 +96,7 @@ const CartContextProvider = ({ children }) => {
       return cartItem?.sizes.length !== 0;
     });
 
+    saveCart(newCart);
     setCart(newCart);
   }
 
@@ -119,6 +125,7 @@ const CartContextProvider = ({ children }) => {
       return cartItem;
     });
 
+    saveCart(newCart);
     setCartAmount();
     setCart(newCart);
   }
@@ -126,7 +133,9 @@ const CartContextProvider = ({ children }) => {
   function setCartAmount() {
     let count: number = 0;
 
-    cart.forEach((cartItem) => {
+    const savedCart = getCart();
+
+    savedCart.forEach((cartItem) => {
       cartItem?.sizes.forEach((size) => {
         count += size.quantity;
       });
@@ -138,7 +147,9 @@ const CartContextProvider = ({ children }) => {
   function calculateCartPrice(): number {
     let price = 0;
 
-    cart.forEach((cartItem) => {
+    const savedCart = getCart();
+
+    savedCart.forEach((cartItem) => {
       cartItem?.sizes.forEach((size) => {
         price += size.quantity * cartItem?.product.price;
       });

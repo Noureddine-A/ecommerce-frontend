@@ -9,6 +9,9 @@ export class Order {
   zipCode: string;
   country: string;
   phone: string;
+  firstName: string;
+  lastName: string;
+  email: string;
 
   constructor(
     cart: Cart,
@@ -18,7 +21,10 @@ export class Order {
     state: string,
     zipCode: string,
     country: string,
-    phone: string
+    phone: string,
+    firstName: string,
+    lastName: string,
+    email: string
   ) {
     this.cart = cart;
     this.price = price;
@@ -28,5 +34,8 @@ export class Order {
     this.zipCode = zipCode;
     this.country = country;
     this.phone = phone;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
   }
 }
